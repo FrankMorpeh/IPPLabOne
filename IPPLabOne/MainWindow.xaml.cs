@@ -4,6 +4,7 @@ using IPPLabOne.Validators.WorkingProcessValidators;
 using IPPLabOne.ViewModels.WorkingProcessViewModels;
 using Microsoft.Win32;
 using SharpLabFour.Notification;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace IPPLabOne
@@ -34,6 +35,7 @@ namespace IPPLabOne
         private void InitializeExtraComponents()
         {
             processDurationIntegerUpDown.Minimum = 1;
+            processDurationIntegerUpDown.Value = 1;
         }
 
         private void Choose_Click(object sender, RoutedEventArgs e)
@@ -44,14 +46,20 @@ namespace IPPLabOne
         }
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            INotification notification = WorkingProcessValidator.CheckWorkingProcess(workingProcessFluentBuilder.GetPathToProcess());
-            if (notification is None)
+            List<INotification> warnings = WorkingProcessValidator.CheckWorkingProcess(workingProcessFluentBuilder.GetPathToProcess()
+                , processDurationIntegerUpDown.Value);
+            if (warnings.Count == 0)
             {
                 workingProcessViewModel.AddProcess(workingProcessFluentBuilder.SetWorkingTimeInSeconds(processDurationIntegerUpDown.Value)
                     .SetProcessFinishedEventHandler(workingProcessViewModel.RemoveProcess).BuildWorkingProcess());
+                workingProcessFluentBuilder = new WorkingProcessFluentBuilder();
             }
             else
-                NotificationView.ShowNotification(notificationStackPanel, notificationTextBlock, notification);
+                NotificationView.ShowNotifications(notificationStackPanel, notificationTextBlock, warnings);
+        }
+        private void OkButton_Click(object sender, RoutedEventArgs e)
+        {
+            NotificationView.HideNotifications(notificationStackPanel);
         }
     }
 }

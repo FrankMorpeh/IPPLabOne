@@ -30,21 +30,21 @@
 
         <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Process:"/>
+                <TextBlock Text="Process:" FontSize="32"/>
                 <GridSplitter Width="10"/>
                 <Button Content="CHOOSE" Click="Choose_Click"/>
             </StackPanel>
             <GridSplitter Height="20"/>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Duration:"/>
+                <TextBlock Text="Duration:" FontSize="32"/>
                 <GridSplitter Width="10"/>
-                <wpfTool:IntegerUpDown Name="processDurationIntegerUpDown"/>
+                <wpfTool:IntegerUpDown Name="processDurationIntegerUpDown" Width="75" Height="30"/>
             </StackPanel>
             <GridSplitter Height="30"/>
             <Button Content="START" Height="50" Width="100" Click="Start_Click"/>
         </StackPanel>
 
-        <ListView Grid.Column="2" MaxHeight="300" MaxWidth="350" BorderBrush="Black" BorderThickness="2" 
+        <ListView Grid.Column="2" MaxHeight="300" MaxWidth="450" BorderBrush="Black" BorderThickness="2" 
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontSize="20" ItemsSource="{Binding Path=WorkingProcesses}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -54,11 +54,11 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource listHeaderStyle}">
-                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Path=ProcessId}" Width="50"/>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Path=ProcessId}" Width="40"/>
                     <GridViewColumn Header="NAME" DisplayMemberBinding="{Binding Path=ProcessName}" Width="100"/>
-                    <GridViewColumn Header="PRIORITY" DisplayMemberBinding="{Binding Path=PriorityClass}" Width="100"/>
+                    <GridViewColumn Header="PRIORITY" DisplayMemberBinding="{Binding Path=PriorityClass}" Width="80"/>
                     <GridViewColumn Header="THREADS ID" DisplayMemberBinding="{Binding Path=ThreadsId}" Width="75"/>
-                    <GridViewColumn Header="TIME LEFT" DisplayMemberBinding="{Binding Path=TimeLeft}" Width="75"/>
+                    <GridViewColumn Header="TIME LEFT" DisplayMemberBinding="{Binding Path=TimeLeft}" Width="90"/>
                 </GridView>
             </ListView.View>
         </ListView>

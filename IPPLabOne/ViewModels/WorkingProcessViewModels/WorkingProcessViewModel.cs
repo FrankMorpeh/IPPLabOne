@@ -1,4 +1,5 @@
 ﻿using IPPLabOne.Models.WorkingProcesses;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -27,7 +28,10 @@ namespace IPPLabOne.ViewModels.WorkingProcessViewModels
         }
         public void RemoveProcess(WorkingProcess workingProcess)
         {
-            itsWorkingProcesses.Remove(workingProcess);
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                itsWorkingProcesses.Remove(workingProcess);
+            });
         }
 
         // MVVM events
